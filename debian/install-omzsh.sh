@@ -26,14 +26,14 @@ export CHSH=no
 export KEEP_ZSHRC=yes
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-echo "Setting zsh as the default shell for all users..."
+echo "Setting zsh as the default shell for current user..."
 
 # Get zsh path
 ZSH_PATH=$(which zsh)
 
 # Change shell for current user
 echo "Changing shell for current user: $USER"
-sudo usermod --shell "$ZSH_PATH" "$USER"
+sudo chsh -s "$ZSH_PATH" "$USER"
 
 # Install oh-my-zsh for current user if not installed
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -41,7 +41,7 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
         export RUNZSH=no;
         export CHSH=no;
         export KEEP_ZSHRC=yes;
-        sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"
+        sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"
         
         # Install zsh-syntax-highlighting
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
