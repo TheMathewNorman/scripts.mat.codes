@@ -55,3 +55,23 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 fi
 
 echo "Done! zsh is now the default shell for all real users."
+
+# Prompt user before starting zsh
+read -p "Add common aliases to $ZSH_CUSTOM/aliases.zsh? (y/n) " answer
+case ${answer:0:1} in
+    y|Y )
+        echo "Adding common aliases to $ZSH_CUSTOM/aliases.zsh"
+        echo "alias c='clear'" >> "${ZSH_CUSTOM}/aliases.zsh"
+        echo "alias reload='source $HOME/.zshrc'" >> "${ZSH_CUSTOM}/aliases.zsh"
+        # Reload zsh to apply changes
+        source "$HOME/.zshrc"
+        ;;
+    * )
+        echo "Exiting without starting zsh"
+        exit 0
+        ;;
+esac
+
+
+# Start zsh
+zsh
